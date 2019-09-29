@@ -1,0 +1,21 @@
+#ここでベース環境指定
+#libraryはsingularityのライブラリ
+#dockerはdockerhub
+Bootstrap: library or docker
+#どっから取ってきたねんを記述
+From: ubuntu:18.04
+#インストールしたいものを記述
+%post
+    #apt
+    apt update 
+    apt -y upgrade
+    apt -y install hogehoge
+    #pip
+    pip install hogehoge
+#環境変数設定
+%environment
+    export LC_ALL=C
+#誰が作ったのか記述する場所
+%labels
+    Author hogehoge
+    Version v0.0.0
