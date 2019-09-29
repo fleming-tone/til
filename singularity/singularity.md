@@ -59,6 +59,8 @@ $ sudo apt install cryptsetup-bin
 2. それに追加でなんか必要ならpipとかaptで必要ライブラリ追加
 3. 試しに実行してプログラム動けばOK
 - まずここではdefファイルの書き方のあとにsandboxを説明する
+### .defから作る
+- 最小構成の雛形はこんな感じ
 ```Dockerfile
 #ここでベース環境指定
 #libraryはsingularityのライブラリ
@@ -66,47 +68,61 @@ $ sudo apt install cryptsetup-bin
 Bootstrap: library or docker
 #どっから取ってきたねんを記述
 From: ubuntu:18.04
-
-%setup
-    touch /file1
-    touch ${SINGULARITY_ROOTFS}/file2
-
-%files
-    /file1
-    /file1 /opt
-
-%environment
-    export LISTEN_PORT=12345
-    export LC_ALL=C
-
+#インストールしたいものを記述
 %post
-    apt-get update && apt-get install -y netcat
-    NOW=`date`
-    echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
-
-%runscript
-    echo "Container was created $NOW"
-    echo "Arguments received: $*"
-    exec echo "$@"
-
-%startscript
-    nc -lp $LISTEN_PORT
-
-%test
-    grep -q NAME=\"Ubuntu\" /etc/os-release
-    if [ $? -eq 0 ]; then
-        echo "Container base is Ubuntu as expected."
-    else
-        echo "Container base is not Ubuntu."
-    fi
-
+    #apt
+    apt update 
+    apt -y upgrade
+    apt -y install hogehoge
+    #pip
+    pip install hogehoge
+#環境変数設定
+%environment
+    export LC_ALL=C
+#誰が作ったのか記述する場所
 %labels
-    Author d@sylabs.io
-    Version v0.0.1
-
-%help
-    This is a demo container used to illustrate a def file that uses all
-    supported sections.
+    Author hogehoge
+    Version v0.0.0
 ```
-
-
+- 作った.defファイルはsudo権限で.sif(singulairty image file)に変換する
+- コードは以下のよう
+```bash
+$ sudo singularity build hoge.sif hoge.def
+```
+### sandboxから作る
+- sandboxとは開発環境を作るときにパッケージインストール（aptやpipを行いながら）開発を行うときに便利なシステム
+- とりあえず以下のコマンド実行
+```bash
+sudo singularity build --sandbox ch_sandbox docker://chainer/chainer:latest-python3 # --sandboxオプションは-sと省略可
+```
+- このコマンドでは、dockerhubからchainerをサンドボックスとして読み出したもの
+- カレントディレクトリにch_chainerが作られる
+- ここからオプションが２つある
+```bash 
+$ singularity shell ch_sandbox #.sifファイルと同じ扱い
+$ sudo singularity shell --writable ch_sandbox #書き換え可能
+```
+- writableの違い
+  
+|-writable|何もなし |
+----|----|
+|書き込みできる|読み込み専門|
+|他のディレクトリマウントできない|.sifのようになる|
+|apt pip install可能|pipのみインストール可能|
+- 開発環境を思考錯誤したい人は使うといいが
+- 今後のメンテナンス性を考えてdefにしておくことをおすすめする。
+- sandboxもsifにできる。
+```bash
+$ sudo singularity build my_chainer.sif ch_sandbox
+```
+## 実行方法
+- .sifまでできればあとは簡単
+- 他の人に.sifだけ渡せば権限なくても使えます（dockerとの一番の違い）
+```bash
+#GPUを使ってshellを使うとき
+$ singularity shell --nv  hogehoge.sif
+#GPUを使って何かしらコマンドを動かすとき
+$ singularity exec --nv hogehoge.sif nvidia-smi
+```
+- 基本マウントは、/homeがマウントされます。（めちゃ便利）
+- --nvをつけることでGPU使用可です。
