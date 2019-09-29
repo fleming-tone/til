@@ -7,7 +7,7 @@ From: ubuntu:18.04
 #インストールしたいものを記述
 %post
     #apt
-    apt update 
+    apt update -y
     apt -y upgrade
     apt -y install hogehoge
     #pip
