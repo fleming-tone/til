@@ -1,0 +1,34 @@
+#ここでベース環境指定
+#libraryはsingularityのライブラリ
+#dockerはdockerhub
+Bootstrap: docker
+    #どっから取ってきたねんを記述
+    From: nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+#環境変数設定
+%environment
+    export LC_ALL=C
+#インストールしたいものを記述
+%post
+    #apt
+    apt -y update
+    apt -y upgrade
+    apt install -y python3
+    apt install -y python3-pip
+    apt install -y libsndfile1-dev
+    apt install -y portaudio19-dev
+
+    #pip
+    pip3 install chainer
+    pip3 install cupy-cuda100
+    pip3 install numpy
+    pip3 install scipy
+    pip3 install matplotlib
+    pip3 install world
+
+    pip3 install pyaudio
+    pip3 install librosa
+    pip3 install pydub
+%labels
+    Author fleming_tone
+    Version v1.0.0
+    Date 2019/10/01
