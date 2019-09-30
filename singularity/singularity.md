@@ -126,3 +126,9 @@ $ singularity exec --nv hogehoge.sif nvidia-smi
 ```
 - 基本マウントは、/homeがマウントされます。（めちゃ便利）
 - --nvをつけることでGPU使用可です。
+# 参考リンク
+- 参考リンクくらい載せようぜってことで載せときます。
+- [sylab-singularity](https://sylabs.io/singularity/)
+- [検証用コンテナはDocker？いいえ、Singularityです。-quita](https://qiita.com/mkt3/items/b9f86f5ddf9eb0f43608)
+- [Singularityのインストールと実行をしてみた-quita](https://qiita.com/Nahuel/items/6c0fac8176340d749bc7)
+- [Singularity-HPC](https://www.hpc.co.jp/product/software/singularity/)
