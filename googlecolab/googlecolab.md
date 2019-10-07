@@ -3,6 +3,7 @@
 - まぁそんな感じ
 # googleCoLabって
 - googleがやってる無料の計算システム（ただし制限あり）
+    - ９０分ルールと１２時間ルールがあるらしい[参考リンク](https://qiita.com/tomo_makes/items/b3c60b10f7b25a0a5935#2-%E3%82%B7%E3%83%A3%E3%83%83%E3%83%88%E3%83%80%E3%82%A6%E3%83%B3%E3%81%BE%E3%81%A7%E3%81%AE%E6%AE%8B%E6%99%82%E9%96%93%E3%81%AF90%E5%88%86%E3%83%AB%E3%83%BC%E3%83%AB%E3%81%A812%E6%99%82%E9%96%93%E3%83%AB%E3%83%BC%E3%83%AB)
 - 家にGPUマシンおけないよとかいう人は、お手軽に使えます。
 - 記述法は、jupterNotebook形式です。
 # 使い方
@@ -39,7 +40,7 @@ drive.mount('/content/drive')
 #移動を行うときは
 !cd /content/hogehoge
 ```
-- !を頭につけることで実行環境が整います．
+- !を頭につけることでコマンドが実行できます．
 - ここでは試しにmecabの環境をつくる
 - 参考サイト[ColaboratoryでMeCabを使えようにする。](https://qiita.com/pytry3g/items/897ae738b8fbd3ae7893)
 ```bash
