@@ -19,5 +19,5 @@ $dmesg | grep sd
 2. shred
 - 消したいディスクを選択削除
 ```bash
-$sudo shred -v -n 3 -z /sda #最後に削除したいディスクを選択
+$sudo shred -v -n 3 -z /dev/sda #最後に削除したいディスクを選択
 ```
