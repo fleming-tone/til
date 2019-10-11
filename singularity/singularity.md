@@ -56,6 +56,20 @@ $ sudo apt install cryptsetup-bin
 - 手順は以下のよう
 1. [dockerhub](https://hub.docker.com/)か[singularityのlibrary](https://cloud.sylabs.io/library)からいい感じのベース環境を取ってくる
 - コンテナの効率的な作り方は[こちら](https://qiita.com/pottava/items/452bf80e334bc1fee69a)から
+#### 追加項目（2019/10/12)
+- dockerコンテナの選び方というか助言
+- 現在のサポートubuntuLTSは18.04なのでそちらを選んだほうが良い
+- サポートしてないバーションだとpythonが古かったり、apt pipが古くてうまく更新でいないことがある。
+- 各cudaバージョンで最新のubuntuを使ってるものを紹介
+- すべてubuntuは18.04
+- いまのところ18.04では、cuda9.2~10.1までしかない
+
+|tags|cuda version|cudnn version|
+|:----------------------------:|:-:|:-:|
+|9.2-cudnn7-runtime-ubuntu18.04|9.2|7|
+|10.0-cudnn7-runtime-ubuntu18.04|10.0|7|
+|10.1-cudnn7-runtime-ubuntu18.04|10.1|7|
+
 2. それに追加でなんか必要ならpipとかaptで必要ライブラリ追加
 3. 試しに実行してプログラム動けばOK
 - まずここではdefファイルの書き方のあとにsandboxを説明する
