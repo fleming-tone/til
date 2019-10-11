@@ -3,7 +3,7 @@
 #dockerはdockerhub
 Bootstrap: docker
     #どっから取ってきたねんを記述
-    From: nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+    From: nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 #環境変数設定
 %environment
     export LC_ALL=C
@@ -12,7 +12,7 @@ Bootstrap: docker
     #ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
     #apt
     apt -y update
-    apt -y upgrade
+    apt -y full-upgrade
     apt install -y python3
     apt install -y mecab
     apt install -y libmecab-dev
