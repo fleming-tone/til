@@ -146,3 +146,11 @@ $ singularity exec --nv hogehoge.sif nvidia-smi
 - [検証用コンテナはDocker？いいえ、Singularityです。-quita](https://qiita.com/mkt3/items/b9f86f5ddf9eb0f43608)
 - [Singularityのインストールと実行をしてみた-quita](https://qiita.com/Nahuel/items/6c0fac8176340d749bc7)
 - [Singularity-HPC](https://www.hpc.co.jp/product/software/singularity/)
+# 追加項目(2019/10/20)
+- singularityコンテナともとｐｃとの環境依存について
+    - あたりまえかもしれないが，同じｐｃにsingularityで入れたライブラリと同じものが入っているともとから入っているライブラリが使われる．
+    - 例を挙げると，pytorchのライブラリをcondaやpipを使って追加したなら，singularity内で宣言したライブラリのバージョンは，conda&pipで入れたバージョンに依存します．
+
+`ポイント`
+singularityで特定のバージョンを使いたいなら，ベース環境はで，conda,pip,aptでライブラリを共存させないようにしましょう．
+
