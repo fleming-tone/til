@@ -25,6 +25,30 @@ $ export VERSION=1.12 OS=linux ARCH=amd64 && \  # Replace the values as needed
   sudo tar -C /usr/local -xzvf go$VERSION.$OS-$ARCH.tar.gz && \ # Extracts the archive
   rm go$VERSION.$OS-$ARCH.tar.gz    # Deletes the ``tar`` file
 ```
+
+`注意`
+- 2019/12/23現在うまくGO環境がうまく認識されません.[Github isuue](https://github.com/sylabs/singularity/issues/4765)以下のようなエラーが出たら以下の手順をとって下さい
+```bash
+ ./mconfig
+Configuring for project `singularity' with languages: C, Golang
+=> running pre-basechecks project specific checks ...
+=> running base system checks ...
+ checking: host C compiler... cc
+ checking: host C++ compiler... c++
+ checking: host Go compiler (at least version 1.13)... not found!
+mconfig: could not complete configuration
+```
+- [対応策](https://github.com/sylabs/singularity/blob/master/INSTALL.md#install-golang)
+- まずはgoの削除をおこなって
+```bash
+$ export VERSION=1.13.5 OS=linux ARCH=amd64  # change this as you need
+
+$ wget -O /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz https://dl.google.com/go/go${VERSION}.${OS}-${ARCH}.tar.gz && \
+  sudo tar -C /usr/local -xzf /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz
+$ echo 'export GOPATH=${HOME}/go' >> ~/.bashrc && \
+  echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc && \
+  source ~/.bashrc
+```
 - 環境変数設定
 ```bash
 $ echo 'export PATH=/usr/local/go/bin:$PATH' >> ~/.bashrc && \

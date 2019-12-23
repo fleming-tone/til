@@ -1,0 +1,61 @@
+#ここでベース環境指定
+#libraryはsingularityのライブラリ
+#dockerはdockerhub
+Bootstrap: docker
+    #どっから取ってきたねんを記述
+    #From: nvidia/cuda:9.2-cudnn7-runtime-ubuntu18.04
+    From:nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+#環境変数設定
+%environment
+    export LC_ALL=C
+    
+#インストールしたいものを記述
+%post
+    
+    #apt
+    apt -y update
+    apt -y full-upgrade
+    apt install -y git
+    apt install -y python3
+    apt install -y mecab
+    apt install -y libmecab-dev
+    apt install -y mecab-ipadic-utf8
+    apt install -y python3-pip
+    apt install -y libsndfile1-dev
+    ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+    apt install -y python3-opencv
+    apt install -y ffmpeg
+
+
+    #pip
+    pip3 install torch
+    pip3 install torchvision
+    pip3 install numpy
+    pip3 install scipy
+    pip3 install unidecode
+    pip3 install inflect
+    pip3 install librosa
+    pip3 install numba
+    pip3 install lws
+    pip3 install nltk
+    pip3 install tensorflow
+    pip3 install docopt
+    pip3 install tqdm
+    pip3 install tensorboard
+    pip3 install tensorboardX
+    pip3 install nnmnkwii
+    pip3 install requests
+    pip3 install matplotlib
+    pip3 install dominate
+    pip3 install jaconv
+    pip3 install mecab-python3
+    pip3 install pyworld
+    pip3 install pydub
+    pip3 install fastdtw
+    pip3 install pypng
+    pip3 install nussl
+#誰が作ったのか記述する場所
+%labels
+    Author fleming_tone
+    Version v2.0.0
+    Date 2019/12/22
