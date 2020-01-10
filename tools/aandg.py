@@ -4,7 +4,7 @@ import glob
 import os
 import subprocess
 
-if len(sys.argv) < 3:
+if len(sys.argv) != 3:
     print("python3 aandg.py [inputfile_dir] [outputfile_dir]")
     sys.exit()
 
