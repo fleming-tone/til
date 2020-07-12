@@ -1,0 +1,75 @@
+Bootstrap: docker
+    From:nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+
+%post
+    # timezone 4 opencv to avoid inputting country and city...
+    ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+    #apt
+    apt update -y
+    apt upgrade -y
+    apt install -y python3-pip
+    apt install -y python3-opencv
+    apt install -y ffmpeg
+    apt install -y mecab
+    apt install -y libmecab-dev
+    apt install -y mecab-ipadic-utf8
+    apt install -y libsndfile1-dev
+    apt install -y git
+    apt install -y csh
+    apt install -y wget
+    apt install -y bc
+    apt install -y curl
+    apt install -y open-jtalk
+    apt install -y open-jtalk-mecab-naist-jdic hts-voice-nitech-jp-atr503-m001
+
+    #install sptk
+    wget --wait=5 https://sourceforge.net/projects/sp-tk/files/SPTK/SPTK-3.11/SPTK-3.11.tar.gz
+    tar xvfz SPTK-3.11.tar.gz
+    cd SPTK-3.11
+    ./configure
+    make
+    make install
+
+    #pip
+    pip3 install torch torchvision
+    pip3 install tensorboardX
+    pip3 install tensorflow tensorboard
+    pip3 install dominate
+    pip3 install nnmnkwii
+    pip3 install docopt
+    pip3 install unidecode
+    pip3 install inflect
+    pip3 install nltk
+    pip3 install lws
+    pip3 install matplotlib
+    pip3 install pyworld
+    pip3 install pydub
+    pip3 install librosa
+    pip3 install numba
+    pip3 install fastdtw
+    pip3 install pypng
+    pip3 install imageio
+    pip3 install nussl
+    pip3 install pysptk
+    pip3 install tqdm
+    pip3 install scikit-learn
+    pip3 install numpy
+    pip3 install scipy
+    pip3 install Pillow
+    pip3 install ipython[all]
+    pip3 install jupyter
+    pip3 install seaborn
+    pip3 install progressbar
+
+    #install visdom
+    cd /tmp
+    git clone https://github.com/facebookresearch/visdom.git    
+    cd visdom
+    pip3 install -e .
+    cd /tmp
+    rm -rf visdom
+
+%labels
+    Author fleming_tone
+    Last Update     2020/07/31
