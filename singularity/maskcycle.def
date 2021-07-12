@@ -1,5 +1,5 @@
 # reference
-#https://github.com/GANtastic3/MaskCycleGAN-VC
+# https://github.com/daa233/generative-inpainting-pytorch
 
 #ここでベース環境指定
 #dockerはdockerhubからベースとなるimageを指定
@@ -20,21 +20,17 @@ Bootstrap: docker
     apt install -y ffmpeg
     apt install -y libsndfile1-dev
     apt install -y libsm6 libxrender1 libxext-dev
-    #apt install -y python3-opencv
 
     #pip
     pip3 install -U pip
     pip3 install numba==0.53.0
     pip3 install numpy==1.20.1
     pip3 install pillow==8.1.0
-    #pip3 install torch==1.7.1+cu110
-    pip3 install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+    pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
     pip3 install scikit-learn==0.24.1
     pip3 install six==1.15.0
     pip3 install tensorboard==2.4.1
     pip3 install tensorboardx==2.1
-    #pip3 install torchaudio==0.7.2
-    #pip3 install torchvision==0.8.2+cu110
     pip3 install argon2-cffi==20.1.0
     pip3 install async-generator==1.10
     pip3 install bleach==3.3.0
@@ -72,11 +68,12 @@ Bootstrap: docker
     pip3 install webencodings==0.5.1
     pip3 install widgetsnbextension==3.5.1
     pip3 install matplotlib==3.3.4
+    pip3 install nnmnkwii
     pip3 install tqdm
 
     
 
 %labels
     Author habara
-    Version v1.00
-    Date july 7th, 2021
+    Version v2.0.0
+    Date December 21th, 2020
