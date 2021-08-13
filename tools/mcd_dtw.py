@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import glob
 import librosa
 import numpy as np
 import pyworld
 import pysptk
+from nnmnkwii.metrics import melcd
 
 args=sys.argv
 if len(args) != 3:
@@ -27,19 +27,17 @@ else:
     # Use WORLD vocoder to spectral envelope
     _, sp1, _ = pyworld.wav2world(wav1.astype(np.double), fs=sr, frame_period=FRAME_PERIOD, fft_size=fft_size)
     # Extract MCEP features
-    mgc1 = pyworld.code_spectral_envelope(sp1, sr, mcep_dim)
+    mgc1 = pysptk.sptk.mcep(sp1, order=mcep_size, alpha=alpha, maxiter=0, etype=1, eps=1.0E-8, min_det=0.0, itype=3)
     
 
     # Use WORLD vocoder to spectral envelope
     _, sp2, _ = pyworld.wav2world(wav2.astype(np.double), fs=sr,frame_period=FRAME_PERIOD, fft_size=fft_size)
     # Extract MCEP features
-    mgc2 = pyworld.code_spectral_envelope(sp1, sr, mcep_dim)
+    mgc2 = pysptk.sptk.mcep(sp2, order=mcep_size, alpha=alpha, maxiter=0, etype=1, eps=1.0E-8, min_det=0.0, itype=3)
 
-    ref_frame_no = len(mgc1)
+    min_cost, wp = librosa.sequence.dtw(mgc1[:, 1:].T, mgc2[:, 1:].T)
 
-    min_cost, _ = librosa.sequence.dtw(mgc1[:, 1:].T, mgc2[:, 1:].T)
-
-    result = np.mean(min_cost)/ref_frame_no
+    result = melcd(mgc1[wp[:, 0], mgc2[:, 1]], length = None)
 
     print(result)
 
